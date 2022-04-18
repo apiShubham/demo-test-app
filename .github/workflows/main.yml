@@ -4,7 +4,7 @@ name: Build and Deploy to Sandbox
 
 on:
   push:
-    branches: [ main ]
+    branches: [ dev , main]
   workflow_dispatch:
     
 jobs:
@@ -75,7 +75,7 @@ jobs:
         PASSWORD: ${{ secrets.PASSWORD }}
       run: |
         artifactName=$(ls *.jar | head -1)
-        mvn deploy -DmuleDeploy \
+        mvn $SETTINGS deploy -DmuleDeploy \
          -Dmule.artifact=$artifactName \
          -Danypoint.username="$USERNAME" \
          -Danypoint.password="$PASSWORD" \
