@@ -73,9 +73,10 @@ jobs:
       env:
         USERNAME: ${{ secrets.USERNAME }}
         PASSWORD: ${{ secrets.PASSWORD }}
+        SETTINGS: ${{ secrets.SETTINGS }}
       run: |
         artifactName=$(ls *.jar | head -1)
-        mvn -s ${{ secrets.SETTINGS }} deploy -DmuleDeploy \
+        mvn -s $SETTINGS deploy -DmuleDeploy \
          -Dmule.artifact=$artifactName \
          -Danypoint.username="$USERNAME" \
          -Danypoint.password="$PASSWORD" \
