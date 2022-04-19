@@ -6,6 +6,10 @@ on:
   push:
     branches: [ dev , main]
   workflow_dispatch:
+  
+env:
+  nexus_username: ${{ secrets.NEXUS_USERNAME }}
+  nexus_password: ${{ secrets.NEXUS_PASSWORD }}
     
 jobs:
   build:
