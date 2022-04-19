@@ -3,8 +3,8 @@
 <servers>
     <server>
         <id>MuleRepository</id>
-            <username>${nexus_username}</username>
-            <password>${nexus_password}</password>
+            <username>${env.nexus_username}</username>
+            <password>${env.nexus_password}</password>
     </server>
     <server>
             <id>anypoint-exchange-v2</id>
