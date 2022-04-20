@@ -1,17 +1,19 @@
 # This workflow will build a MuleSoft project and deploy to CloudHub
 
-name: Build and Deploy to Sandbox
+name: Build and Deploy to Sandbox- main
 
 on:
   push:
-    branches: [ dev , main]
+    branches: [ main ]
   workflow_dispatch:
+  
+env:
+  nexus_username: ${{ secrets.NEXUS_USERNAME }}
+  nexus_password: ${{ secrets.NEXUS_PASSWORD }}
     
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     
     steps:
     
@@ -51,8 +53,7 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    env:
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+    environment: 'config main'
 
     steps:    
     
@@ -73,9 +74,10 @@ jobs:
       env:
         USERNAME: ${{ secrets.USERNAME }}
         PASSWORD: ${{ secrets.PASSWORD }}
+        SETTINGS: ${{ secrets.SETTINGS }}
       run: |
         artifactName=$(ls *.jar | head -1)
-        mvn $SETTINGS deploy -DmuleDeploy \
+        mvn -s settings.xml deploy -DmuleDeploy \
          -Dmule.artifact=$artifactName \
          -Danypoint.username="$USERNAME" \
          -Danypoint.password="$PASSWORD" \
