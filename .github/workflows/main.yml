@@ -4,7 +4,7 @@ name: Build and Deploy to Sandbox
 
 on:
   push:
-    branches: [ dev , main]
+    branches: [ dev ]
   workflow_dispatch:
   
 env:
@@ -53,6 +53,7 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    environment: 'config dev'
 
     steps:    
     
